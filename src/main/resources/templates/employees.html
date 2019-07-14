@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>List of Employees</title>
+</head>
+<body>
+
+<div class="w3-panel w3-blue" align="center">
+    <h3 class="w3-text-orange" style="text-shadow:1px 1px 0 #444"  ><b>Employees</b></h3>
+    <a th:href="@{/welcome}" class="w3-text-white" >Main Menu</a>
+    <div>
+        <h3 class="w3-text-white"  style="text-shadow:1px 1px 0 #444">
+            User: <span sec:authentication="name">NOT FOUND</span>
+        </h3>
+        <h4 class="w3-text-white"  style="text-shadow:1px 1px 0 #444">
+            Spring Roles: <span sec:authentication="principal.authorities">
+            NOT FOUND</span>
+        </h4>
+    </div>
+</div>
+
+<div align="center">
+    <table border="1" cellpadding="5">
+        <tr class="w3-light-grey">
+            <th align="center">Id</th>
+            <th align="center">First name</th>
+            <th align="center">Last name</th>
+            <th align="center">Salary($)</th>
+            <th align="center">Birthday</th>
+            <th align="center">Employment day</th>
+            <th align="center">Department</th>
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">
+                <th align="center">Action</th>
+            </div>
+        </tr>
+        <tr th:each="employee: ${employees}">
+            <td align="center" th:text="${employee.id}"></td>
+            <td align="center"th:text="${employee.firstname}"></td>
+            <td align="center"th:text="${employee.lastname}"></td>
+            <td align="center"th:text="${employee.salary}"></td>
+
+            <td align="center" th:text="${#dates.format(employee.birthdate, 'yyyy-MM-dd')}"></td>
+            <td align="center" th:text="${#dates.format(employee.employmentdate,'yyyy-MM-dd')}"></td>
+
+            <td align="center"th:text="${employee.departments.iterator().next()}"></td>
+
+
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">
+                <td>
+                    <a th:href="@{/employee/showFormForUpdate/{employeeId}(employeeId=${employee.id})}"
+                       class="w3-bar-item w3-button w3-aqua">Update</a>
+                    <a th:href="@{/employee/delete/{employeeId}(employeeId=${employee.id})}"
+                       onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false"
+                       class="w3-bar-item w3-button w3-orange">Delete</a>
+                </td>
+            </div>
+        </tr>
+    </table>
+
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR','ROLE_USER')">
+        <button class="w3-btn w3-grey w3-round-medium"
+                onclick="window.location.href='showFormForAdd'; return false;">add new employee</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Department Form</title>
+</head>
+<body>
+
+<div align="center">
+    <form th:action="@{/department/saveDepartment}" th:object="${department}"  method="POST">
+
+        <table cellpadding="10">
+            <caption><h3>Save department</h3></caption>
+            <tr>
+                <th>Id:</th>
+                <td><input type="text" th:field="*{id}" th:readonly="true"/></td>
+            </tr>
+            <tr>
+                <th>Name:</th>
+                <td><input type="text" th:field="*{name}" /></td>
+                <td style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><button class="w3-btn w3-deep-purple w3-round-medium" type="submit">save</button></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Employee Form</title>
+</head>
+<body>
+<div align="center">
+    <form th:action="@{/employee/saveEmployee}" th:object="${employee}" method="POST">
+
+        <!-- -->
+            <!--<tr>-->
+                <!--<th>Department:</th>-->
+                <!--<td><select th:field="*{departments}">-->
+                    <!--<option th:each="department : ${departments}"-->
+                            <!--th:value="${department.id}"-->
+                            <!--th:text="${department.name}">-->
+                    <!--</option>-->
+                <!--</select></td>-->
+            <!--</tr>-->
+            <tr>
+                <td colspan="2" align="center"><button class="w3-btn w3-deep-purple w3-round-medium" type="submit">save</button></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

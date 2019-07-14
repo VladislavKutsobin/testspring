@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <form th:action="@{/registration}"   method="POST">
+        <table cellpadding="10">
+            <caption><h3>Confirmation code</h3></caption>
+            <tr><th> Phone code : </th>
+                <td align="center"><input type="text" name="phoneCodeFromUser"
+                                          required
+                                          minlength="4"
+                                          class="w3-input"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button class="w3-btn w3-deep-purple w3-round-medium" type="submit">Confirm</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

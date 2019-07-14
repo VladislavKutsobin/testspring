@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Employee Form</title>
+</head>
+<body>
+<div align="center">
+    <form th:action="@{/employee/saveEmployee}" th:object="${employee}" method="POST">
+
+        <table cellpadding="10">
+            <caption><h3>Save employee</h3></caption>
+            <tr>
+                <th>Id of employee:</th>
+                <td><input type="text" th:field="*{id}" th:readonly="true"/></td>
+            </tr>
+            <tr>
+                <th>First name:</th>
+                <td><input type="text" th:field="*{firstname}" /></td>
+                <td style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstname}">Name Error</td>
+            </tr>
+            <tr>
+                <th>Last name:</th>
+                <td><input type="text" th:field="*{lastname}" /></td>
+                <td style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastname}">Name Error</td>
+            </tr>
+            <tr>
+                <th>Salary($):</th>
+                <td><input type="text" th:field="*{salary}" /></td>
+                <td style="color:red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Name Error</td>
+            </tr>
+            <tr>
+                <th>Birthday:</th>
+                <td><input type="text" th:field="*{birthdate}" placeholder="yyyy-MM-dd"/></td>
+            </tr>
+            <tr>
+                <th>Employment day:</th>
+                <td><input type="text" th:field="*{employmentdate}" placeholder="yyyy-MM-dd"/></td>
+            </tr>
+            <tr>
+                <th>Department:</th>
+                <td><select th:field="*{departments}">
+                    <option th:each="department : ${departments}"
+                            th:value="${department.id}"
+                            th:text="${department.name}">
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><button class="w3-btn w3-deep-purple w3-round-medium" type="submit">save</button></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

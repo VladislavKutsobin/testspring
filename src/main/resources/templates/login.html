@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Login</title>
+
+</head>
+<body>
+
+<div class="w3-container w3-deep-purple">
+    <div class="w3-container w3-margin">
+        <div class="w3-text-white" th:if="${param.error}">
+            Invalid username and password page LOGIN
+        </div>
+        <div class="w3-text-white" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+    </div>
+    <h3 align="center">Login page:</h3>
+</div>
+<div align="center" class="w3-container w3-margin">
+    <form th:action="@{/registration}">
+        <button class="w3-btn w3-blue w3-round-medium" type="submit">Registration</button>
+    </form>
+</div>
+<div align="center">
+    <form class="w3-container" th:action="@{/login}" method="post">
+        <table border="1" cellpadding="5">
+
+            <tr><th> User Name : </th>
+                <td><input class="w3-input" type="text"  name="username" required/></td>
+            </tr>
+            <tr><th> Password: </th>
+                <td><input class="w3-input"  type="password" placeholder="Password"  name="password" id="password" required/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button class="w3-btn w3-deep-purple w3-round-medium" type="submit">Sign In</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
