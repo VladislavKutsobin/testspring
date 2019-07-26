@@ -9,16 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
+@SessionAttributes(types = User.class)
 public class UserController {
 
     @Autowired
@@ -45,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, @RequestParam("phoneCodeFromUser") String phoneCodeFromUserInput, Model model, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, @RequestParam("phoneCodeFromUser") String phoneCodeFromUserInput, Model model, BindingResult bindingResult, SessionStatus sessionStatus) {
         userValidator.validate(userForm, bindingResult);
 
         if (!phoneCodeFromUserInput.equals(userForm.getPhoneCode())) {
@@ -54,8 +53,9 @@ public class UserController {
 
         userService.save(userForm);
 
-            securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
+        sessionStatus.setComplete();
         return "redirect:/login";
     }
 
